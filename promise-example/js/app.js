@@ -21,7 +21,7 @@ function getJSON(url) {
         reject(e.message);
       }
     };
-  
+
     // Отлавливаем ошибки
     request.onerror = function () {
       reject(this.status + " " + this.statusText);
@@ -32,3 +32,15 @@ function getJSON(url) {
   });
 };
 
+const p1 = getJSON("./example1.json");
+const p2 = getJSON("./example2.json");
+const p3 = getJSON("./example3.json");
+
+Promise.all([p1, p2, p3]).then( values => {
+  values.map((value) => console.log(value))
+});
+
+Promise.race([p1, p2, p3]).then( values => {
+  // values.map((value) => console.log(value))
+  console.log("done");
+});
